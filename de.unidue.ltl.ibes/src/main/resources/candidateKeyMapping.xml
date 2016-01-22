@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<candidates>
+	<candidate>
+		<name>Jenny Elvers</name>
+		<keys>
+			<key>Jenny</key>
+			<key>Elvers</key>
+			<key>JennyElvers</key>
+			<key>#JennyElvers</key>
+			<key>#Jenny</key>
+			<key>#Elvers</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Helena Fürst</name>
+		<keys>
+			<key>Helena</key>
+			<key>HelenaFuerst</key>
+			<key>#HelenaFuerst</key>
+			<key>Höllena</key>
+			<key>Hoellena</key>
+			<key>#Höllena</key>
+			<key>#Hoellena</key>			
+			<key>Fürst</key>
+			<key>Fuerst</key>
+			<key>#Helena</key>
+			<key>#Fürst</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Gunter Gabriel</name>
+		<keys>
+<!-- 			<key>Gunter</key> -->
+<!-- 			<key>GunterGabriel</key> -->
+<!-- 			<key>#GunterGabriel</key> -->
+<!-- 			<key>Gabriel</key> -->
+<!-- 			<key>#Gunter</key> -->
+<!-- 			<key>#Gabriel</key> -->
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Ricky Harris</name>
+		<keys>
+			<key>Ricky</key>
+			<key>RickyHarris</key>
+			<key>#RickyHarris</key>
+			<key>Harris</key>
+			<key>#Ricky</key>
+			<key>#Harris</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Thorsten Legat</name>
+		<keys>
+			<key>Thorsten</key>
+			<key>ThorstenLegat</key>
+			<key>#ThorstenLegat</key>
+			<key>Legat</key>
+			<key>#Thorsten</key>
+			<key>#Legat</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Jürgen Milski</name>
+		<keys>
+			<key>Jürgen</key>
+			<key>JuergenMilski</key>
+			<key>JürgenMilski</key>
+			<key>#JürgenMilski</key>
+			<key>Milski</key>
+			<key>Juergen</key>
+			<key>#Jürgen</key>
+			<key>#Milski</key>
+			<key>@BBJuergen</key>
+			<key>BBJuergen</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Brigitte Nielsen</name>
+		<keys>
+			<key>Brigitte</key>
+			<key>BrigitteNielsen</key>
+			<key>#BrigitteNielsen</key>
+			<key>Nielsen</key>
+			<key>#Brigitte</key>
+			<key>#Nielsen</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>David Ortega</name>
+		<keys>
+			<key>David</key>
+			<key>Ortega</key>
+			<key>DavidOrtega</key>
+			<key>#DavidOrtega</key>
+			<key>#David</key>
+			<key>#Ortega</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Nathalie Volk</name>
+		<keys>
+			<key>Nathalie</key>
+			<key>NathalieVolk</key>
+			<key>#NathalieVolk</key>
+			<key>Volk</key>
+			<key>#Nathalie</key>
+			<key>#Volk</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Sophia Wollersheim</name>
+		<keys>
+			<key>Sophia</key>
+			<key>SophiaWollersheim</key>
+			<key>#SophiaWollersheim</key>
+			<key>Wollersheim</key>
+			<key>#Sophia</key>
+			<key>#Wollersheim</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Rolf Zacher</name>
+		<keys>
+			<key>Rolf</key>
+			<key>Zacher</key>
+			<key>#Rolf</key>
+			<key>#Zacher</key>
+			<key>RolfZacher</key>
+			<key>#RolfZacher</key>
+		</keys>
+	</candidate>
+	<candidate>
+		<name>Menderes Bagci</name>
+		<keys>
+			<key>Menderes</key>
+			<key>MenderesBagci</key>
+			<key>#MenderesBagci</key>
+			<key>Bagci</key>
+			<key>#Menderes</key>
+			<key>#Bagci</key>
+		</keys>
+	</candidate>
+</candidates>
