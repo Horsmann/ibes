@@ -23,167 +23,162 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Analyser
-    extends JCasAnnotator_ImplBase
-{
+public class Analyser extends JCasAnnotator_ImplBase {
 
-    public static final String PARAM_CONFIGURATION_FILE = "PARAM_CONFIGURATION_FILE";
-    @ConfigurationParameter(name = PARAM_CONFIGURATION_FILE, mandatory = true)
-    private File configFile;
+	public static final String PARAM_CONFIGURATION_FILE = "PARAM_CONFIGURATION_FILE";
+	@ConfigurationParameter(name = PARAM_CONFIGURATION_FILE, mandatory = true)
+	private File configFile;
 
-    public static final String PARAM_TARGET_FOLDER = "PARAM_TARGET_FILE";
-    @ConfigurationParameter(name = PARAM_TARGET_FOLDER, mandatory = true)
-    private File targetFolder;
+	public static final String PARAM_TARGET_FOLDER = "PARAM_TARGET_FILE";
+	@ConfigurationParameter(name = PARAM_TARGET_FOLDER, mandatory = true)
+	private File targetFolder;
 
-    Map<String, Set<String>> participant2keywords = new HashMap<String, Set<String>>();
-    Map<String, Double> participant2score = new HashMap<String, Double>();
+	Map<String, Set<String>> participant2keywords = new HashMap<String, Set<String>>();
+	Map<String, Double> participant2score = new HashMap<String, Double>();
 
-    final String LINEBREAK = "\r\n";
-    
-    @Override
-    public void initialize(final UimaContext context)
-        throws ResourceInitializationException
-    {
-        super.initialize(context);
-        loadConfiguration();
-        initScoreMap();
-    }
+	final String LINEBREAK = "\r\n";
 
-    private void initScoreMap()
-    {
-        for (String participant : participant2keywords.keySet()) {
-            participant2score.put(participant, new Double(0));
-        }
-    }
+	@Override
+	public void initialize(final UimaContext context)
+			throws ResourceInitializationException {
+		super.initialize(context);
+		loadConfiguration();
+		initScoreMap();
+	}
 
-    private void loadConfiguration()
-        throws ResourceInitializationException
-    {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(configFile);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("candidate");
+	private void initScoreMap() {
+		for (String participant : participant2keywords.keySet()) {
+			participant2score.put(participant, new Double(0));
+		}
+	}
 
-            for (int j = 0; j < nList.getLength(); j++) {
-                Node nNode = nList.item(j);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+	private void loadConfiguration() throws ResourceInitializationException {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(configFile);
+			doc.getDocumentElement().normalize();
+			NodeList nList = doc.getElementsByTagName("candidate");
 
-                    Node item = eElement.getElementsByTagName("name").item(0);
-                    // System.out.println(item.getTextContent());
-                    // System.out.println("----");;
+			for (int j = 0; j < nList.getLength(); j++) {
+				Node nNode = nList.item(j);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
 
-                    String candidateName = item.getTextContent();
-                    Set<String> keywords = new HashSet<String>();
+					Node item = eElement.getElementsByTagName("name").item(0);
+					// System.out.println(item.getTextContent());
+					// System.out.println("----");;
 
-                    NodeList keyList = eElement.getElementsByTagName("key");
-                    for (int i = 0; i < keyList.getLength(); i++) {
-                        Node key = keyList.item(i);
-                        if (key.getNodeType() == Node.ELEMENT_NODE) {
-                            // System.out.println(key.getTextContent());
-                            keywords.add(key.getTextContent().toLowerCase());
-                        }
-                    }
+					String candidateName = item.getTextContent();
+					Set<String> keywords = new HashSet<String>();
 
-                    participant2keywords.put(candidateName, keywords);
-                }
-            }
+					NodeList keyList = eElement.getElementsByTagName("key");
+					for (int i = 0; i < keyList.getLength(); i++) {
+						Node key = keyList.item(i);
+						if (key.getNodeType() == Node.ELEMENT_NODE) {
+							// System.out.println(key.getTextContent());
+							keywords.add(key.getTextContent().toLowerCase());
+						}
+					}
 
-        }
-        catch (Exception e) {
-            throw new ResourceInitializationException(e);
-        }
-    }
+					participant2keywords.put(candidateName, keywords);
+				}
+			}
 
-    @Override
-    public void process(JCas aJCas)
-        throws AnalysisEngineProcessException
-    {
-        String documentText = aJCas.getDocumentText().toLowerCase();
+		} catch (Exception e) {
+			throw new ResourceInitializationException(e);
+		}
+	}
 
-        Set<String> keySet = participant2keywords.keySet();
-        for (String participant : keySet) {
-            Set<String> keywords = participant2keywords.get(participant);
-            for (String key : keywords) {
+	@Override
+	public void process(JCas aJCas) throws AnalysisEngineProcessException {
+		String documentText = aJCas.getDocumentText().toLowerCase();
 
-                boolean plain = documentText.contains(key);
-                boolean hash = documentText.contains("#" + key);
-                boolean atmention = documentText.contains("@" + key);
+		Set<String> keySet = participant2keywords.keySet();
+		for (String participant : keySet) {
+			Set<String> keywords = participant2keywords.get(participant);
+			for (String key : keywords) {
 
-                if (plain || hash || atmention) {
-                    scoreParticipant(participant);
-                    break;
-                }
-            }
-        }
-    }
+				boolean plain = documentText.contains(key);
+				boolean hash = documentText.contains("#" + key);
+				boolean atmention = documentText.contains("@" + key);
 
-    private void scoreParticipant(String participant)
-    {
-        Double score = participant2score.get(participant);
-        score++;
-        participant2score.put(participant, score);
-    }
+				if (plain || hash || atmention) {
+					scoreParticipant(participant);
+					break;
+				}
+			}
+		}
+	}
 
-    public void collectionProcessComplete()
-        throws AnalysisEngineProcessException
-    {
-        Double totalScore = getTotal();
+	private void scoreParticipant(String participant) {
+		Double score = participant2score.get(participant);
+		score++;
+		participant2score.put(participant, score);
+	}
 
-        sysoutToCmd(totalScore);
-        writeResultfile(totalScore);
+	public void collectionProcessComplete()
+			throws AnalysisEngineProcessException {
+		Double totalScore = getTotal();
 
-    }
+		sysoutToCmd(totalScore);
+		writeResultfile(totalScore);
 
-    private void writeResultfile(Double totalScore)
-        throws AnalysisEngineProcessException
-    {
-        StringBuilder sb = new StringBuilder();
-        for (String participant : participant2score.keySet()) {
-            Double count = participant2score.get(participant);
-            sb.append(participant + "\t" + getScore(count, totalScore));
-            sb.append(LINEBREAK);
-        }
+	}
 
-        java.util.Date date = new java.util.Date();
-        String timestamp = new Timestamp(date.getTime()).toString().replaceAll(":", "_")
-                .replaceAll(" ", "_").replaceAll("-", "_").replaceAll("\\.", "_");
+	private void writeResultfile(Double totalScore)
+			throws AnalysisEngineProcessException {
+		StringBuilder sb = new StringBuilder();
+		for (String participant : participant2score.keySet()) {
+			Double count = participant2score.get(participant);
+			sb.append(participant + "\t" + getScore(count, totalScore));
+			sb.append(LINEBREAK);
+		}
 
-        try {
-            FileUtils.writeStringToFile(new File(targetFolder, "ibes" + timestamp+".txt"),
-                    sb.toString(), "utf-8");
-            FileUtils.writeStringToFile(new File(targetFolder, "ibes_latest.txt"),
-                    sb.toString(), "utf-8");
-        }
-        catch (IOException e) {
-            throw new AnalysisEngineProcessException(e);
-        }
-    }
+		java.util.Date date = new java.util.Date();
+		String timestamp = new Timestamp(date.getTime()).toString()
+				.replaceAll(":", "_").replaceAll(" ", "_").replaceAll("-", "_")
+				.replaceAll("\\.", "_");
 
-    private String getScore(Double count, Double totalScore)
-    {
-        return String.format("%.1f", 100.0 / totalScore * count);
-    }
+		try {
+			FileUtils.writeStringToFile(new File(targetFolder, "ibes"
+					+ timestamp + ".txt"), sb.toString(), "utf-8");
+			FileUtils.writeStringToFile(new File(targetFolder,
+					"ibes_latest.txt"), sb.toString(), "utf-8");
+		} catch (IOException e) {
+			throw new AnalysisEngineProcessException(e);
+		}
+	}
 
-    private void sysoutToCmd(Double totalScore)
-    {
-        for (String participant : participant2score.keySet()) {
-            Double count = participant2score.get(participant);
-            System.out.println(participant + "\t" + getScore(count, totalScore));
-        }
-    }
+	private String getScore(Double count, Double totalScore) {
+		double t = 100.0 / totalScore;
+		double c = t * count;
 
-    private Double getTotal()
-    {
-        Double totalScore = 0.0;
-        for (String participant : participant2score.keySet()) {
-            totalScore += participant2score.get(participant);
-        }
+		if (c == 0) {
+			// this happens if a candidate left the camp we manipulate the
+			// ordering in the front-end by setting this value to 100
+			c = 100;
+		}
 
-        return totalScore;
-    }
+		return String.format("%.1f", 100.0 - c);
+	}
+
+	private void sysoutToCmd(Double totalScore) {
+		for (String participant : participant2score.keySet()) {
+			Double count = participant2score.get(participant);
+			System.out
+					.println(participant + "\t" + getScore(count, totalScore));
+		}
+	}
+
+	private Double getTotal() {
+		Double totalScore = 0.0;
+		for (String participant : participant2score.keySet()) {
+			totalScore += participant2score.get(participant);
+		}
+
+		return totalScore;
+	}
 
 }
