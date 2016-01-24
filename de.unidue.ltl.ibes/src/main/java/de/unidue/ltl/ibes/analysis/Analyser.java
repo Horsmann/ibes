@@ -165,7 +165,7 @@ public class Analyser
 
     private String getScore(Double count, Double totalScore)
     {
-        return String.format("%.1f", count / totalScore * 100);
+        return String.format("%.1f", 100.0 / totalScore * count);
     }
 
     private void sysoutToCmd(Double totalScore)

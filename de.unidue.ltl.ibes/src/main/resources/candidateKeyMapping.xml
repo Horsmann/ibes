@@ -3,12 +3,12 @@
 	<candidate>
 		<name>Jenny Elvers</name>
 		<keys>
-			<key>Jenny</key>
-			<key>Elvers</key>
-			<key>JennyElvers</key>
-			<key>#JennyElvers</key>
-			<key>#Jenny</key>
-			<key>#Elvers</key>
+<!-- 			<key>Jenny</key> -->
+<!-- 			<key>Elvers</key> -->
+<!-- 			<key>JennyElvers</key> -->
+<!-- 			<key>#JennyElvers</key> -->
+<!-- 			<key>#Jenny</key> -->
+<!-- 			<key>#Elvers</key> -->
 		</keys>
 	</candidate>
 	<candidate>
@@ -122,12 +122,12 @@
 	<candidate>
 		<name>Rolf Zacher</name>
 		<keys>
-			<key>Rolf</key>
-			<key>Zacher</key>
-			<key>#Rolf</key>
-			<key>#Zacher</key>
-			<key>RolfZacher</key>
-			<key>#RolfZacher</key>
+<!-- 			<key>Rolf</key> -->
+<!-- 			<key>Zacher</key> -->
+<!-- 			<key>#Rolf</key> -->
+<!-- 			<key>#Zacher</key> -->
+<!-- 			<key>RolfZacher</key> -->
+<!-- 			<key>#RolfZacher</key> -->
 		</keys>
 	</candidate>
 	<candidate>
