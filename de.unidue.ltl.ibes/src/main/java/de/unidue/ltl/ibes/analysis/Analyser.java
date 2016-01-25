@@ -121,18 +121,34 @@ public class Analyser extends JCasAnnotator_ImplBase {
 	public void collectionProcessComplete()
 			throws AnalysisEngineProcessException {
 		Double totalScore = getTotal();
+		Double totalInverse = getTotalInverse(totalScore);
 
-		sysoutToCmd(totalScore);
-		writeResultfile(totalScore);
+		sysoutToCmd(totalScore,totalInverse);
+		writeResultfile(totalScore,totalInverse);
 
 	}
 
-	private void writeResultfile(Double totalScore)
+	private Double getTotalInverse(Double totalScore)
+    {
+	    double totalInverse=0.0;
+        for (String participant : participant2score.keySet()) {
+            Double count = participant2score.get(participant);
+            if(count==0){
+                continue;
+            }
+            totalInverse += totalScore - count;
+        }
+        return totalInverse;
+    }
+
+    private void writeResultfile(Double totalScore, Double totalInverse)
 			throws AnalysisEngineProcessException {
 		StringBuilder sb = new StringBuilder();
+		
 		for (String participant : participant2score.keySet()) {
 			Double count = participant2score.get(participant);
-			sb.append(participant + "\t" + getScore(count, totalScore));
+//			sb.append(participant + "\t" + getScore(count, totalScore));
+			sb.append(participant + "\t" + getInverseScore(count, totalScore,totalInverse));
 			sb.append(LINEBREAK);
 		}
 
@@ -150,6 +166,26 @@ public class Analyser extends JCasAnnotator_ImplBase {
 			throw new AnalysisEngineProcessException(e);
 		}
 	}
+	
+	private String getInverseScore(Double count,  Double totalScore,Double totalInverse){
+	    
+	    if(count==0){
+	        return String.format("%.1f",  0.0);
+	    }
+	    
+	    double inverseScore = totalScore - count;
+	           double t = 100.0 / totalInverse;  
+	    double c = t  * inverseScore;
+	    
+
+//        if (count == 0) {
+//            // this happens if a candidate left the camp we manipulate the
+//            // ordering in the front-end by setting this value to 100
+//            c = 100;
+//        }
+	    
+	    return String.format("%.1f",  c);
+	}
 
 	private String getScore(Double count, Double totalScore) {
 		double t = 100.0 / totalScore;
@@ -164,11 +200,13 @@ public class Analyser extends JCasAnnotator_ImplBase {
 		return String.format("%.1f", 100.0 - c);
 	}
 
-	private void sysoutToCmd(Double totalScore) {
+	private void sysoutToCmd(Double totalScore, Double totalInverse) {
 		for (String participant : participant2score.keySet()) {
 			Double count = participant2score.get(participant);
+//			System.out
+//					.println(participant + "\t" + getScore(count, totalScore));
 			System.out
-					.println(participant + "\t" + getScore(count, totalScore));
+            .println(participant + "\t" + getInverseScore(count, totalScore, totalInverse));
 		}
 	}
 
