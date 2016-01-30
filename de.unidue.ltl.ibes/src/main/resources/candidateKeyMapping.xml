@@ -14,17 +14,17 @@
 	<candidate>
 		<name>Helena Fürst</name>
 		<keys>
-			<key>Helena</key>
-			<key>HelenaFuerst</key>
-			<key>#HelenaFuerst</key>
-			<key>Höllena</key>
-			<key>Hoellena</key>
-			<key>#Höllena</key>
-			<key>#Hoellena</key>			
-			<key>Fürst</key>
-			<key>Fuerst</key>
-			<key>#Helena</key>
-			<key>#Fürst</key>
+<!-- 			<key>Helena</key> -->
+<!-- 			<key>HelenaFuerst</key> -->
+<!-- 			<key>#HelenaFuerst</key> -->
+<!-- 			<key>Höllena</key> -->
+<!-- 			<key>Hoellena</key> -->
+<!-- 			<key>#Höllena</key> -->
+<!-- 			<key>#Hoellena</key>			 -->
+<!-- 			<key>Fürst</key> -->
+<!-- 			<key>Fuerst</key> -->
+<!-- 			<key>#Helena</key> -->
+<!-- 			<key>#Fürst</key> -->
 		</keys>
 	</candidate>
 	<candidate>
